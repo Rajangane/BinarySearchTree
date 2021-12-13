@@ -1,7 +1,7 @@
 ﻿// See https://aka.ms/new-console-template for more information
 //Console.WriteLine("************* Welcome To BST **************");
 using BinarysearchTree;
-Console.Write("Select Number:\n1)CreateBST\n2)ADDElements");
+Console.Write("Select Number:\n1)CreateBST\n2)ADDElements&Search");
 int option = Convert.ToInt32(Console.ReadLine());
 BinaryTree<int> binaryTree = new BinaryTree<int>(56);
 switch (option)
@@ -26,6 +26,9 @@ switch (option)
         binaryTree.Add(63);
         binaryTree.Add(67);
         binaryTree.Display();
+        Console.WriteLine("Searching 63 in binary tree \n");
+        bool result = binaryTree.Search(63, binaryTree);
+        Console.WriteLine(result);
         break;
 
     default:

@@ -6,43 +6,45 @@ using System.Threading.Tasks;
 
 namespace BinarysearchTree
 {
-    public class BinaryTree<T> where T : IComparable
+
+    class BinaryTree<T> where T : IComparable<T>
     {
         public T Data { get; set; }
+        public bool result;
         public BinaryTree<T> LTree { get; set; }
         public BinaryTree<T> RTree { get; set; }
-        public BinaryTree(T data) //constructor
+        public BinaryTree(T data) //constuctor
         {
             this.Data = data;
-            this.RTree = null; //RightTree
-            this.LTree = null; //LeftTree
+            this.RTree = null; //Right Tree
+            this.LTree = null; //Left Tree
         }
 
         /// <summary>
-        /// 
         /// ADD Method
         /// </summary>
-        /// <param name="item"></param>
-        public void Add(T item)
+        /// <param name="data"> takig data to add </param>
+        public void Add(T data)
         {
             T currentNodeValue = this.Data;
-            if ((currentNodeValue.CompareTo(item)) > 0)
+            if ((currentNodeValue.CompareTo(data)) > 0)
             {
                 if (this.LTree == null)
-                    this.LTree = new BinaryTree<T>(item);
+                    this.LTree = new BinaryTree<T>(data);
                 else
-                    this.LTree.Add(item);
+                    this.LTree.Add(data);
             }
             else
             {
                 if (this.RTree == null)
-                    this.RTree = new BinaryTree<T>(item);
+                    this.RTree = new BinaryTree<T>(data);
                 else
-                    this.RTree.Add(item);
+                    this.RTree.Add(data);
             }
-
+            // Console.WriteLine("data added is:" +data);
         }
-        private int LCount = 0, RCount = 0; //LeftCount, RightCount
+        private int LCount = 0, RCount = 0;
+
         /// <summary>
         /// Display Method
         /// </summary>
@@ -61,5 +63,31 @@ namespace BinarysearchTree
                 this.RTree.Display();
             }
         }
+
+        /// <summary>
+        /// Searching Element is present or not
+        /// </summary>
+        /// <param name="element">element to search in list</param>
+        /// <param name="node"></param>
+        /// <returns></returns>
+        public bool Search(T element, BinaryTree<T> node)
+        {
+
+            if (node == null)
+                return false;
+            if (node.Data.Equals(element))
+            {
+                Console.WriteLine("Number is found :" + " " + node.Data);
+                result = true;
+            }
+            else
+                Console.WriteLine("Current {0} in binay tree", node.Data);
+            if (element.CompareTo(node.Data) < 0)
+                Search(element, node.LTree);
+            if (element.CompareTo(node.Data) > 0)
+                Search(element, node.RTree);
+            return result;
+        }
+
     }
 }
